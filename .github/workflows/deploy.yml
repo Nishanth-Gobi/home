@@ -24,12 +24,10 @@ jobs:
           submodules: recursive
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
-      - name: Update Obsidian Vault Submodule
-        run: |
-          cd content
-          git pull
-        working-directory: ${{ github.workspace }}
-      # git submodule update --remote content/
+      # - name: Update Obsidian Vault Submodule
+      #   run: |
+      #     git submodule update --remote content/
+      #   working-directory: ${{ github.workspace }}
 
       - uses: actions/setup-node@v3
         with:
