@@ -26,10 +26,8 @@ jobs:
 
       - name: Update Obsidian Vault Submodule
         run: |
-          git pull --recurse-submodules
+          git submodule update --remote content/
         working-directory: ${{ github.workspace }}
-
-      # git submodule update --remote --recursive
 
       - uses: actions/setup-node@v3
         with:
