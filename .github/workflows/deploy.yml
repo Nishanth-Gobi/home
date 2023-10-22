@@ -26,8 +26,10 @@ jobs:
 
       - name: Update Obsidian Vault Submodule
         run: |
-          git submodule update --remote content/
+          cd content
+          git pull
         working-directory: ${{ github.workspace }}
+      # git submodule update --remote content/
 
       - uses: actions/setup-node@v3
         with:
