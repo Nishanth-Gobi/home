@@ -405,6 +405,10 @@ th {
   border-bottom: 2px solid var(--gray);
 }
 
+th:empty {
+  display: none;
+}
+
 td {
   padding: 0.2rem 1rem;
 }
