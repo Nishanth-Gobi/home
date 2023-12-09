@@ -24,11 +24,6 @@ jobs:
           submodules: recursive
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
-      # - name: Update Obsidian Vault Submodule
-      #   run: |
-      #     git submodule update --remote content/
-      #   working-directory: ${{ github.workspace }}
-
       - uses: actions/setup-node@v3
         with:
           node-version: 18.14

@@ -1,0 +1,19 @@
+name: Daily update of content submodule
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at 00:00 UTC every day
+
+jobs:
+  run-daily-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code including submodules
+        uses: actions/checkout@v4
+
+      - name: Update submodule
+        run: |
+          git submodule update --remote --merge
+          git commit -am "Update submodule" 
+          git push origin HEAD:main
