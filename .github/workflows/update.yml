@@ -1,8 +1,8 @@
 name: Daily update of content submodule
 
-  on:
-  # schedule:
-  #   - cron: '0 0 * * *' # Runs at 00:00 UTC every day
+on:
+  schedule:
+    - cron: '0 0 1 1 *'
 
 jobs:
   run-daily-job:
