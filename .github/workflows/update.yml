@@ -2,7 +2,7 @@ name: Daily update of content submodule
 
 on:
   schedule:
-    - cron: '0 0 1 1 *'
+    - cron: '0 0 * * *'
 
 jobs:
   run-daily-job:
@@ -19,3 +19,5 @@ jobs:
           git submodule update --remote --merge
           git commit -am "Update submodule" 
           git push origin HEAD:main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
