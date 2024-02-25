@@ -17,7 +17,7 @@ jobs:
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
           git submodule update --remote --merge
-          git commit -am "Update submodule" 
+          git commit --allow-empty -am "Update submodule" 
           git push origin HEAD:main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
