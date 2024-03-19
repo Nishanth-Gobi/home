@@ -3,21 +3,27 @@ name: Daily update of content submodule
 on:
   schedule:
     - cron: '0 0 * * *'
+  push:
+    branches:
+      - main
 
 jobs:
   run-daily-job:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code including submodules
+      - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
       - name: Update submodule
         run: |
-          git config --global user.email "nish.professional@gmail.com"
-          git config --global user.name "Nishanth-Gobi"
-          git submodule update --remote --merge
+          git config user.email "nish.professional@gmail.com"
+          git config user.name "Nishanth-Gobi"
+          git submodule update --remote content
           git commit --allow-empty -am "Update submodule" 
-          git push origin HEAD:main
+          git push
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
