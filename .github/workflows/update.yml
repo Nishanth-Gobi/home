@@ -20,10 +20,15 @@ jobs:
 
       - name: Update submodule
         run: |
-          git config user.email "nish.professional@gmail.com"
-          git config user.name "Nishanth-Gobi"
-          git submodule update --remote content
-          git commit --allow-empty -am "Update submodule" 
-          git push
+          git pull --recurse-submodules
+          git submodule update --remote --recursive
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
+     
+      - name: Commit
+        run:
+          git config --global user.email "nish.professional@gmail.com"
+          git config --global user.name "Nishanth-Gobi"
+          git add --all
+          git commit -m "Update submodule" || echo "No changes to commit" 
+          git push
