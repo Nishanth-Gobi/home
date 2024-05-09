@@ -1,6 +1,9 @@
 name: Update content submodule
 
 on:
+  push:
+    branches:
+      - main
   workflow_dispatch:
 
 jobs:
@@ -16,14 +19,8 @@ jobs:
 
       - name: Update submodule
         run: |
-          git config --global user.email "nish.professional@gmail.com"
-          git config --global user.name "Nishanth-Gobi"
-          git submodule update --init
           cd content
           ls
-          git add --all
-          git commit -m "Update submodule"
-          git push origin ${GITHUB_REF##*/}
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
   call-deploy-workflow:
