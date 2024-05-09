@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          submodules: true
+          # submodules: true
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
       - name: Update submodule
