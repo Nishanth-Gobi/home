@@ -1,33 +1,28 @@
-name: Daily update of content submodule
+name: Update content submodule
 
 on:
-  schedule:
-    - cron: '0 0 * * *'
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  run-daily-job:
+  update-content:
     runs-on: ubuntu-latest
-
+    permissions: write_all
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          submodules: recursive
+          submodules: true
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
       - name: Update submodule
         run: |
-          git pull --recurse-submodules
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
-     
-      - name: Commit
-        run:
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
+          git submodule update --remote content
           git add --all
-          git commit -am "Update submodule" || echo "No changes to commit" 
-          git push
+          git commit -m "Update submodule"
+          git push origin ${GITHUB_REF##*/}
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
+  call-deploy-workflow:
+    uses: ./.github/workflows/deploy.yml
