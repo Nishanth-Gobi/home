@@ -6,7 +6,7 @@ on:
 jobs:
   update-content:
     runs-on: ubuntu-latest
-    permissions: write_all
+    permissions: write-all
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
