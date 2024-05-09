@@ -20,8 +20,7 @@ jobs:
           git config --global user.name "Nishanth-Gobi"
           cd content
           ls
-          cd ..
-          git pull --prune --recurse-submodules --force 
+          git pull
           git add --all
           git commit -m "Update submodule"
           git push origin ${GITHUB_REF##*/}
