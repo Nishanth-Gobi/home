@@ -18,7 +18,7 @@ jobs:
         run: |
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
-          git submodule update --remote content
+          git pull --recurse-submodules
           git add --all
           git commit -m "Update submodule"
           git push origin ${GITHUB_REF##*/}
