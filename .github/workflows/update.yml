@@ -24,7 +24,7 @@ jobs:
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
-          git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content
+          git submodule update --remote --merge
           git add --all
           git commit -m "Update content"
           git push
@@ -32,3 +32,6 @@ jobs:
   call-deploy-workflow:
     needs: [ update-content ]
     uses: ./.github/workflows/deploy.yml
+
+
+# git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content
