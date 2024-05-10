@@ -1,9 +1,6 @@
 name: Update content submodule
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
 
 jobs:
