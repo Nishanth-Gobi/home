@@ -17,13 +17,15 @@ jobs:
           submodules: true
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
-      - name: Update submodule
+      - name: Add submodule
         run: |
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
-          git submodule update --init
+          git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content
           cd content
           ls
+          git commit -m "Update content"
+          git push
 
         env:
           SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
