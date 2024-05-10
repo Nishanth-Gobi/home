@@ -28,8 +28,7 @@ jobs:
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
           git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content
-          cd content
-          ls
+          git add --all
           git commit -m "Update content"
           git push
         
