@@ -18,7 +18,13 @@ jobs:
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
       - name: Add submodule
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
         run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
           git config --global user.email "nish.professional@gmail.com"
           git config --global user.name "Nishanth-Gobi"
           git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content
@@ -26,9 +32,7 @@ jobs:
           ls
           git commit -m "Update content"
           git push
-
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
+        
   call-deploy-workflow:
     needs: [ update-content ]
     uses: ./.github/workflows/deploy.yml
