@@ -2,7 +2,8 @@
 git config --global user.email "nish.professional@gmail.com"
 git config --global user.name "Nishanth-Gobi"
 
-# git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content
+git submodule add git@github.com:Nishanth-Gobi/Obsidian-Vault.git content || echo "Submodule exists"
+
 git submodule update --remote 
 git add --all
 
