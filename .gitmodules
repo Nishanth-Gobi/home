@@ -1,4 +1,0 @@
-[submodule "content"]
-	path = content
-	url = git@github.com:Nishanth-Gobi/Obsidian-Vault.git
-	branch = public
