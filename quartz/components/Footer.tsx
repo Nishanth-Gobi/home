@@ -11,7 +11,7 @@ export default ((opts?: Options) => {
     const year = new Date().getFullYear()
     const links = opts?.links ?? []
     return (
-      <></>
+      <div style={{ height: "100px" }}></div>
       // <footer class={`${displayClass ?? ""}`}>
       //   <hr />
       //   <p>
