@@ -11,16 +11,22 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: recursive
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
-      - name: Add submodule
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.VAULT_SSH_KEY }}
+      - name: Update submodule
         run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          chmod +x ./.github/workflows/update_submodule.sh
-          ./.github/workflows/update_submodule.sh
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+
+          git submodule update --init --remote --rebase content
+
+      - name: Commit and push changes
+        run: |
+          git add content
+          if [[ -n "$(git status --porcelain)" ]]; then
+            git commit -m "chore: update content submodule"
+            git push
+          else
+            echo "No changes to commit."
+          fi
