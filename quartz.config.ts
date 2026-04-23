@@ -9,7 +9,7 @@ const config: QuartzConfig = {
     analytics: {
       provider: "plausible",
     },
-    baseUrl: "nishanth-gobi.github.io/home",
+    baseUrl: "garden.nishanthgobi.com",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
