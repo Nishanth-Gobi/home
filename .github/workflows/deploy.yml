@@ -24,9 +24,9 @@ jobs:
           submodules: recursive
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
-          node-version: 18.14
+          node-version-file: .node-version
 
       - name: Install Dependencies
         run: npm ci
