@@ -19,12 +19,12 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Check out quartz repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           submodules: recursive
           ssh-key: ${{ secrets.VAULT_SSH_KEY }}
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v6
         with:
           node-version: 18.14
 
@@ -35,7 +35,7 @@ jobs:
         run: npx quartz build
         
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: public
  
@@ -48,4 +48,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
