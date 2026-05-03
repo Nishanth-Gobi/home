@@ -21,6 +21,10 @@ export type FontSpecification =
       name: string
       weights?: number[]
       includeItalic?: boolean
+      // Variable font axes — when set, supersedes `weights`.
+      // Key is the Google Fonts axis tag (lowercase or uppercase, e.g. "opsz", "wght", "SOFT").
+      // Value is the axis range (e.g. "9..144") or fixed value (e.g. "400").
+      axes?: Record<string, string>
     }
 
 export interface Theme {
@@ -59,8 +63,23 @@ function formatFontSpecification(
 
   const defaultIncludeWeights = type === "header" ? [400, 700] : [400, 600]
   const defaultIncludeItalic = type === "body"
-  const weights = spec.weights ?? defaultIncludeWeights
   const italic = spec.includeItalic ?? defaultIncludeItalic
+
+  if (spec.axes) {
+    // Google Fonts variable URL: axes sorted lowercase-first then uppercase, alphabetical within group.
+    const axisKeys = Object.keys(spec.axes).filter((k) => k !== "ital")
+    const lower = axisKeys.filter((k) => k === k.toLowerCase()).sort()
+    const upper = axisKeys.filter((k) => k !== k.toLowerCase()).sort()
+    const ordered = italic ? ["ital", ...lower, ...upper] : [...lower, ...upper]
+
+    const valuesFor = (italVal: number) =>
+      ordered.map((ax) => (ax === "ital" ? String(italVal) : spec.axes![ax])).join(",")
+
+    const tuples = italic ? `${valuesFor(0)};${valuesFor(1)}` : valuesFor(0)
+    return `${spec.name}:${ordered.join(",")}@${tuples}`
+  }
+
+  const weights = spec.weights ?? defaultIncludeWeights
 
   const features: string[] = []
   if (italic) {
